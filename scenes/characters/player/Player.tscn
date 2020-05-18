@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/characters/Knight/knight_atlas_1.png" type="Texture" id=2]
@@ -218,8 +218,13 @@ tracks/0/keys = {
 "values": [ 78, 79, 80, 81, 82, 83 ]
 }
 
+[sub_resource type="CapsuleShape2D" id=14]
+radius = 6.89619
+height = 13.7586
+
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 281.733, 160.252 )
+collision_layer = 2
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -242,6 +247,11 @@ anims/run = SubResource( 10 )
 anims/run_attack = SubResource( 11 )
 anims/walk = SubResource( 12 )
 anims/walk_attack = SubResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -20.6121, 38.7989 )
+rotation = 1.5708
+shape = SubResource( 14 )
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 3 )

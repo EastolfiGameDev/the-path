@@ -49,7 +49,7 @@ func _input(event):
     current_state.handle_input(event)
 
 func _physics_process(delta):
-    current_state.update(delta)
+    current_state.handle_physics_process(delta)
 
 func _on_animation_finished(anim_name):
     if not _active:
