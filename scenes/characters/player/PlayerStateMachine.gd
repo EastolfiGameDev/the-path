@@ -2,5 +2,6 @@ extends StateMachine
 
 func _ready():
     states_map = {
-        Constants.STATES.IDLE: $Idle
+        Constants.STATES.IDLE: $Idle,
+        Constants.STATES.MOVE: $Move
     }

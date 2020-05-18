@@ -1,5 +1,5 @@
 extends Node
 
-const AnimatorClass = preload("res://scripts/animations/Animator.gd")
+const _AnimatorClass = preload("res://scripts/animations/Animator.gd")
 
-var Animator := AnimatorClass.new()
+var Animator := _AnimatorClass.new()

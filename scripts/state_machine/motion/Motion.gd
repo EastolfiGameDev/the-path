@@ -7,6 +7,10 @@ const GRAVITY = 10
 
 var motion = Vector2.ZERO
 
+#func handle_input(event):
+#    if event.is_action_pressed("simulate_damage"):
+#        emit_signal("finished", "stagger")
+
 func handle_physics_process(delta):
     motion.y += GRAVITY
     
@@ -31,4 +35,4 @@ func update_look_direction(direction):
     if not direction.x in [-1, 1]:
         return
 
-    owner.get_node("BodyPivot").set_scale(Vector2(direction.x, 1))
+#    owner.get_node("BodyPivot").set_scale(Vector2(direction.x, 1))
