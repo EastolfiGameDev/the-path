@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/state_machine/motion/in_air/Jump.gd" type="Script" id=2]
 [ext_resource path="res://scenes/characters/player/PlayerStateMachine.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/characters/Adventurer/adventurer-Sheet.png" type="Texture" id=4]
+[ext_resource path="res://scripts/state_machine/motion/on_ground/Crouch.gd" type="Script" id=5]
 [ext_resource path="res://scripts/state_machine/motion/on_ground/Idle.gd" type="Script" id=7]
 [ext_resource path="res://scripts/state_machine/motion/on_ground/Move.gd" type="Script" id=8]
 [ext_resource path="res://scenes/debug/StateNameDisplayer.tscn" type="PackedScene" id=14]
@@ -22,6 +23,23 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 18, 19, 20, 21 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "crouch"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -93,7 +111,6 @@ tracks/0/keys = {
 
 [sub_resource type="CapsuleShape2D" id=6]
 radius = 5.0
-height = 15.0
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 281.733, 160.252 )
@@ -104,18 +121,18 @@ script = ExtResource( 1 )
 texture = ExtResource( 4 )
 vframes = 16
 hframes = 7
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 anims/air_roll = SubResource( 1 )
+anims/crouch = SubResource( 7 )
 anims/fall = SubResource( 2 )
 anims/idle = SubResource( 3 )
 anims/jump = SubResource( 4 )
 anims/move = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 5 )
+position = Vector2( 0, 3 )
 shape = SubResource( 6 )
 
 [node name="StateMachine" type="Node" parent="."]
@@ -124,6 +141,10 @@ START_STATE = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 7 )
+__meta__ = {
+"_editor_description_": ""
+}
+FRICTION = 950.0
 
 [node name="Move" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
@@ -137,6 +158,9 @@ AIR_ACCELERATION = 10.0
 AIR_DECCELERATION = 20.0
 AIR_STEERING_POWER = 5.0
 JUMP_HEIGHT = 200.0
+
+[node name="Crouch" type="Node" parent="StateMachine"]
+script = ExtResource( 5 )
 
 [node name="BodyPivot" type="Position2D" parent="."]
 position = Vector2( 0, 15 )

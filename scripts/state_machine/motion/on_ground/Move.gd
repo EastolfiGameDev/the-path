@@ -3,6 +3,7 @@ extends OnGround
 
 export(float) var MAX_WALK_SPEED = 450
 export(float) var MAX_RUN_SPEED = 700
+export(float) var ACCELERATION = 950
 
 var speed = 0
 
@@ -21,12 +22,15 @@ func handle_physics_process(delta):
     var input_direction = get_input_direction()
     if not input_direction:
         emit_signal("finished", Constants.STATES.IDLE)
+        return
+
     update_look_direction(input_direction)
 
-    if Input.is_action_pressed(Constants.ACTION_KEYS.RUN):
-        run(input_direction)
-    else:
-        walk(input_direction)
+    if input_direction:
+        if Input.is_action_pressed(Constants.ACTION_KEYS.RUN):
+            run(input_direction, delta)
+        else:
+            walk(input_direction, delta)
 
 #    if owner.get_slide_count() >= 0:
 #        var collision_info = owner.get_slide_collision(0)
@@ -38,12 +42,12 @@ func handle_physics_process(delta):
     
     .handle_physics_process(delta)
 
-func move(speed: float, direction: Vector2):
+func move(speed: float, direction: Vector2, delta):
     self.speed = speed
-    motion = direction.normalized() * speed
+    motion = motion.move_toward(direction.normalized() * speed, ACCELERATION * delta)
 
-func walk(direction: Vector2):
-    return move(MAX_WALK_SPEED, direction)
+func walk(direction: Vector2, delta):
+    return move(MAX_WALK_SPEED, direction, delta)
 
-func run(direction: Vector2):
-    move(MAX_RUN_SPEED, direction)
+func run(direction: Vector2, delta):
+    move(MAX_RUN_SPEED, direction, delta)

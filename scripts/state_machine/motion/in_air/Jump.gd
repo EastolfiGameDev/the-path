@@ -61,8 +61,7 @@ func _move_horizontally():
     else:
         horizontal_speed -= AIR_DECCELERATION
     horizontal_speed = clamp(horizontal_speed, 0, max_horizontal_speed)
-    print(max_horizontal_speed)
-    
+
     var target_velocity = horizontal_speed * input_direction.normalized()
     var steering_velocity = (target_velocity - horizontal_velocity).normalized() * AIR_STEERING_POWER
     horizontal_velocity += steering_velocity

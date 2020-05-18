@@ -4,7 +4,8 @@ func _ready():
     states_map = {
         Constants.STATES.IDLE: $Idle,
         Constants.STATES.MOVE: $Move,
-        Constants.STATES.JUMP: $Jump
+        Constants.STATES.JUMP: $Jump,
+        Constants.STATES.CROUCH: $Crouch
     }
 
 func _change_state(state_name):
@@ -16,5 +17,8 @@ func _change_state(state_name):
     
     if state_name == Constants.STATES.JUMP and current_state == $Move:
         $Jump.initialize($Move.speed, $Move.motion)
+    
+    if state_name == Constants.STATES.IDLE and current_state == $Move:
+        $Idle.initialize($Move.motion)
 
     ._change_state(state_name)
