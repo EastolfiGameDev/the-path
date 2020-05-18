@@ -4,6 +4,7 @@ extends State
 
 const UP = Vector2(0, -1)
 const GRAVITY = 10
+const MAX_GRAVITY_SPEED = 500
 
 var motion = Vector2.ZERO
 
@@ -12,10 +13,8 @@ var motion = Vector2.ZERO
 #        emit_signal("finished", "stagger")
 
 func handle_physics_process(delta):
-    motion.y += GRAVITY
-    
-    if (owner as KinematicBody2D).is_on_floor():
-        motion.y = 0
+    # Apply basic gravity
+    motion.y = clamp(motion.y + GRAVITY, -MAX_GRAVITY_SPEED, MAX_GRAVITY_SPEED)
     
     motion = (owner as KinematicBody2D).move_and_slide(motion, UP)
 

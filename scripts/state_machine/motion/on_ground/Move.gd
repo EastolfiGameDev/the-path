@@ -4,9 +4,9 @@ extends OnGround
 export(float) var MAX_WALK_SPEED = 450
 export(float) var MAX_RUN_SPEED = 700
 
+var speed = 0
+
 func enter():
-#    speed = 0.0
-#    velocity = Vector2()
     motion = Vector2.ZERO
 
     var input_direction = get_input_direction()
@@ -39,7 +39,7 @@ func handle_physics_process(delta):
     .handle_physics_process(delta)
 
 func move(speed: float, direction: Vector2):
-#    self.speed = speed
+    self.speed = speed
     motion = direction.normalized() * speed
 
 func walk(direction: Vector2):
