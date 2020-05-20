@@ -7,15 +7,17 @@ const GRAVITY = 10
 const MAX_GRAVITY_SPEED = 500
 
 var motion = Vector2.ZERO
+var apply_gravity := true
 
 #func handle_input(event):
 #    if event.is_action_pressed("simulate_damage"):
 #        emit_signal("finished", "stagger")
 
 func handle_physics_process(delta):
-    # Apply basic gravity
-    motion.y = clamp(motion.y + GRAVITY, -MAX_GRAVITY_SPEED, MAX_GRAVITY_SPEED)
-    
+    if apply_gravity:
+        # Apply basic gravity
+        motion.y = clamp(motion.y + GRAVITY, -MAX_GRAVITY_SPEED, MAX_GRAVITY_SPEED)
+
     motion = (owner as KinematicBody2D).move_and_slide(motion, UP)
 
 func get_input_direction():

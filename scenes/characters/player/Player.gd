@@ -6,6 +6,7 @@ var look_direction = Vector2(1, 0) setget set_look_direction
 
 onready var sprite: Sprite = $Sprite
 onready var collision: CollisionShape2D = $CollisionShape2D
+onready var body_pivot: Position2D = $BodyPivot
 
 func _ready():
     expand_collision()
@@ -13,6 +14,7 @@ func _ready():
 func set_look_direction(value: Vector2):
     look_direction = value
     sprite.flip_h = true if value.x < 0 else false
+    body_pivot.scale.x *= -1
     emit_signal("direction_changed", value)
 
 #var t: float = 0

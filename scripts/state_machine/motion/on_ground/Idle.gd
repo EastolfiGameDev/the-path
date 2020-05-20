@@ -20,6 +20,6 @@ func handle_physics_process(delta):
     if input_direction:
         emit_signal("finished", Constants.STATES.MOVE)
     else:
-        motion = motion.move_toward(Vector2.ZERO, FRICTION * delta)
+        motion.x = motion.move_toward(Vector2.ZERO, FRICTION * delta).x
 
     .handle_physics_process(delta)

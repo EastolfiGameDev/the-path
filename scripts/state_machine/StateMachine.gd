@@ -26,7 +26,6 @@ var _active = false setget set_active
 
 func _ready():
     for child in get_children():
-#        print((child as Node).has_user_signal("finished"))
         child.connect("finished", self, "_change_state")
     initialize(START_STATE)
 
@@ -60,16 +59,28 @@ func _change_state(state_name):
     if not _active:
         return
     
+    """
+    If doing a PREVIOUS, get the first state in the stack (the last one) as the mext state
+    Otherwise, if it a normal change, get the corresponding next state
+    """
+    var next_state
     if state_name == Constants.STATES.PREVIOUS and states_stack.size() > 0:
-        states_stack.pop_front()
+        next_state = states_stack[0]
     elif states_map.has(state_name):
-        states_stack[0] = states_map[state_name]
+        next_state = states_map[state_name]
     else:
         return
     
-    current_state.exit() 
+    if not next_state:
+        return
     
-    current_state = states_stack[0]
+    # We dont want to have more than 3 states in memory
+    if states_stack.size() > 3:
+        states_stack.pop_back()
+
+    current_state.exit() 
+
+    current_state = next_state
     emit_signal("state_changed", current_state)
     
     if state_name != "previous":

@@ -16,6 +16,7 @@ var max_horizontal_speed = BASE_MAX_HORIZONTAL_SPEED
 var horizontal_speed = 0.0
 var horizontal_velocity = Vector2()
 var is_in_air = false
+var corner_raycast: RayCast2D
 
 func initialize(speed: float, velocity: Vector2):
     enter_velocity = velocity
@@ -37,12 +38,18 @@ func enter():
 
     is_in_air = true
     motion.y -= JUMP_HEIGHT
+    
+    if owner.has_node("BodyPivot/CornerRaycast"):
+        corner_raycast = owner.get_node("BodyPivot/CornerRaycast")
 
     Game.Animator.animate(owner, "jump")
 
 func handle_physics_process(delta):
     _check_landing()
     _move_horizontally()
+    
+    if motion.y >= 0 and corner_raycast.is_colliding():
+        emit_signal("finished", Constants.STATES.CORNER_GRAB)
 
     .handle_physics_process(delta)
 

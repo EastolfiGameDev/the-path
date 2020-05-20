@@ -22,6 +22,7 @@ func handle_physics_process(delta):
     var input_direction = get_input_direction()
     if not input_direction:
         emit_signal("finished", Constants.STATES.IDLE)
+#        emit_signal("finished", Constants.STATES.PREVIOUS)
         return
 
     update_look_direction(input_direction)
@@ -39,12 +40,12 @@ func handle_physics_process(delta):
 #            return
 #        if speed == MAX_RUN_SPEED and collision_info.collider.is_in_group("environment"):
 #            return null
-    
+
     .handle_physics_process(delta)
 
 func move(speed: float, direction: Vector2, delta):
     self.speed = speed
-    motion = motion.move_toward(direction.normalized() * speed, ACCELERATION * delta)
+    motion.x = motion.move_toward(direction.normalized() * speed, ACCELERATION * delta).x
 
 func walk(direction: Vector2, delta):
     return move(MAX_WALK_SPEED, direction, delta)
