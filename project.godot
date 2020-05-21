@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/state_machine/motion/on_ground/OnGround.gd"
 }, {
+"base": "Node2D",
+"class": "PlatformWaypoints",
+"language": "GDScript",
+"path": "res://scenes/items/world/PlatformWaypoints.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -61,6 +66,7 @@ _global_script_class_icons={
 "Motion": "",
 "Move": "",
 "OnGround": "",
+"PlatformWaypoints": "",
 "State": "",
 "StateMachine": "",
 "WeaponPivot": ""
