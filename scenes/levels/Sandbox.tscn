@@ -1,19 +1,132 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/tilemaps/grass/GrassAutotile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=5]
+[ext_resource path="res://scenes/tilemaps/buildings/Buildings.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/items/world/MovingPlatform.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/items/world/PlatformWaypoints.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/sprites/items/world/grass_platform.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/background/parallax/seamless_hd_landscape/parts/landscape_0003_4_mountain.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/background/parallax/seamless_hd_landscape/parts/landscape_0004_5_clouds.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/background/parallax/seamless_hd_landscape/parts/landscape_0005_6_background.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/background/parallax/seamless_hd_landscape/parts/landscape_0002_3_trees.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/background/parallax/seamless_hd_landscape/parts/landscape_0001_2_trees.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/background/parallax/seamless_hd_landscape/parts/landscape_0000_1_trees.png" type="Texture" id=15]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( 250.394, 286.168, 319.827, 287.3, 319.45, 295.98, 250.394, 295.225 )
 
 [node name="Sandbox" type="Node2D"]
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Background" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 1080 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Background"]
+modulate = Color( 0.5586, 0.902743, 0.98, 0.513726 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Clouds" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Clouds"]
+texture = ExtResource( 11 )
+centered = false
+offset = Vector2( 0, -360 )
+
+[node name="Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Mountains"]
+texture = ExtResource( 10 )
+centered = false
+offset = Vector2( 0, -360 )
+
+[node name="MountainsFront" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/MountainsFront"]
+texture = ExtResource( 13 )
+centered = false
+offset = Vector2( 0, -360 )
+
+[node name="Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Trees"]
+texture = ExtResource( 14 )
+centered = false
+offset = Vector2( 0, -360 )
+
+[node name="TreesFront" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/TreesFront"]
+texture = ExtResource( 15 )
+centered = false
+offset = Vector2( 0, -360 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 306.85, 337.25 )
+position = Vector2( 127.249, 548.342 )
 current = true
 zoom = Vector2( 0.4, 0.4 )
+offset_v = -0.8
+
+[node name="Buildings" type="Node2D" parent="."]
+
+[node name="BackLayer" parent="Buildings" instance=ExtResource( 6 )]
+tile_data = PoolIntArray( 1048584, 0, 1966080, 1048585, 0, 1966081, 1048586, 0, 1966082, 1048587, 0, 1966082, 1048588, 0, 1966082, 1048589, 0, 1966083, 1114120, 0, 2097152, 1114121, 0, 2097153, 1114122, 0, 2097154, 1114123, 0, 2097154, 1114124, 0, 2097154, 1114125, 0, 2097155 )
+
+[node name="MediumLayer" parent="Buildings" instance=ExtResource( 6 )]
+tile_data = PoolIntArray( 983048, 0, 393216, 1048584, 0, 458752, 1048585, 0, 458753, 1048586, 0, 393217, 1048587, 0, 393217, 1048588, 0, 393217, 1048589, 0, 393221, 1114120, 0, 720896, 1114121, 0, 720897, 1114125, 0, 720901 )
+
+[node name="FrontLayer" parent="Buildings" instance=ExtResource( 6 )]
+tile_data = PoolIntArray( 917512, 0, 196608, 917513, 0, 196609, 917514, 0, 196609, 917515, 0, 196609, 917516, 0, 196609, 917517, 0, 196610, 983048, 0, 262144, 983049, 0, 262145, 983050, 0, 262145, 983051, 0, 262145, 983052, 0, 262145, 983053, 0, 262146, 1048584, 0, 327680, 1048585, 0, 327681, 1048586, 0, 327682, 1048587, 0, 327682, 1048588, 0, 327682, 1048589, 0, 327682, 1048590, 0, 327683 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 308.281, 364.742 )
+position = Vector2( 127.249, 548.342 )
 
-[node name="Tilemaps" type="Node" parent="."]
+[node name="CameraRemote" parent="Player" index="6"]
+remote_path = NodePath("../../Camera2D")
 
-[node name="GrassAutotile" parent="Tilemaps" instance=ExtResource( 2 )]
-tile_data = PoolIntArray( 1376269, 0, 0, 1376270, 0, 1, 1376271, 0, 2, 1441805, 0, 65536, 1441806, 0, 65537, 1441807, 0, 65538, 1441815, 0, 0, 1441816, 0, 1, 1441817, 0, 1, 1441818, 0, 1, 1441819, 0, 2, 1507341, 0, 65536, 1507342, 0, 65537, 1507343, 0, 65538, 1507351, 0, 65536, 1507352, 0, 65537, 1507353, 0, 65537, 1507354, 0, 65537, 1507355, 0, 65538, 1572877, 0, 65536, 1572878, 0, 65537, 1572879, 0, 131077, 1572880, 0, 1, 1572881, 0, 1, 1572882, 0, 1, 1572883, 0, 1, 1572884, 0, 1, 1572885, 0, 1, 1572886, 0, 1, 1572887, 0, 131078, 1572888, 0, 65537, 1572889, 0, 65537, 1572890, 0, 65537, 1572891, 0, 65538, 1638413, 0, 131072, 1638414, 0, 131073, 1638415, 0, 131073, 1638416, 0, 131073, 1638417, 0, 131073, 1638418, 0, 131073, 1638419, 0, 131073, 1638420, 0, 131073, 1638421, 0, 131073, 1638422, 0, 131073, 1638423, 0, 131073, 1638424, 0, 131073, 1638425, 0, 131073, 1638426, 0, 131073, 1638427, 0, 131074 )
+[node name="World" type="Node2D" parent="."]
+
+[node name="Ground" parent="World" instance=ExtResource( 2 )]
+tile_data = PoolIntArray( 1507402, 0, 196608, 1507403, 0, 196609, 1507404, 0, 196609, 1507405, 0, 196609, 1507406, 0, 196609, 1507407, 0, 196609, 1507408, 0, 196610, 1572930, 0, 196608, 1572931, 0, 196609, 1572932, 0, 196609, 1572933, 0, 196609, 1572934, 0, 196609, 1572935, 0, 196609, 1572936, 0, 196609, 1572937, 0, 196610, 1638461, 0, 196608, 1638462, 0, 196609, 1638463, 0, 196609, 1638464, 0, 196609, 1638465, 0, 196610, 1703995, 0, 196608, 1703996, 0, 196610, 1769530, 0, 196611, 1835065, 0, 196611, 1900599, 0, 196608, 1900600, 0, 196610, 2031615, 0, 0, 1966080, 0, 2, 1966132, 0, 196608, 1966133, 0, 196609, 1966134, 0, 196610, 2097151, 0, 65536, 2031616, 0, 65538, 2031666, 0, 196608, 2031667, 0, 196610, 2162687, 0, 65536, 2097152, 0, 65538, 2097201, 0, 196611, 2228223, 0, 65536, 2162688, 0, 65538, 2162736, 0, 196611, 2293759, 0, 65536, 2228224, 0, 65538, 2228270, 0, 196608, 2228271, 0, 196610, 2359295, 0, 65536, 2293760, 0, 65538, 2293804, 0, 4, 2293805, 0, 196610, 2424831, 0, 65536, 2359296, 0, 131077, 2359297, 0, 1, 2359298, 0, 1, 2359299, 0, 1, 2359300, 0, 1, 2359301, 0, 1, 2359302, 0, 1, 2359303, 0, 1, 2359304, 0, 1, 2359305, 0, 1, 2359306, 0, 1, 2359307, 0, 1, 2359308, 0, 1, 2359309, 0, 1, 2359310, 0, 1, 2359311, 0, 1, 2359312, 0, 1, 2359313, 0, 1, 2359314, 0, 1, 2359315, 0, 1, 2359316, 0, 1, 2359317, 0, 1, 2359318, 0, 1, 2359319, 0, 1, 2359320, 0, 1, 2359321, 0, 1, 2359322, 0, 1, 2359323, 0, 1, 2359324, 0, 1, 2359325, 0, 1, 2359326, 0, 1, 2359327, 0, 1, 2359328, 0, 1, 2359329, 0, 1, 2359330, 0, 1, 2359331, 0, 1, 2359332, 0, 1, 2359333, 0, 1, 2359334, 0, 1, 2359335, 0, 1, 2359336, 0, 1, 2359337, 0, 1, 2359338, 0, 1, 2359339, 0, 1, 2359340, 0, 131079, 2490367, 0, 131072, 2424832, 0, 131073, 2424833, 0, 131073, 2424834, 0, 131073, 2424835, 0, 131073, 2424836, 0, 131073, 2424837, 0, 131073, 2424838, 0, 131073, 2424839, 0, 131073, 2424840, 0, 131073, 2424841, 0, 131073, 2424842, 0, 131073, 2424843, 0, 131073, 2424844, 0, 131073, 2424845, 0, 131073, 2424846, 0, 131073, 2424847, 0, 131073, 2424848, 0, 131073, 2424849, 0, 131073, 2424850, 0, 131073, 2424851, 0, 131073, 2424852, 0, 131073, 2424853, 0, 131073, 2424854, 0, 131073, 2424855, 0, 131073, 2424856, 0, 131073, 2424857, 0, 131073, 2424858, 0, 131073, 2424859, 0, 131073, 2424860, 0, 131073, 2424861, 0, 131073, 2424862, 0, 131073, 2424863, 0, 131073, 2424864, 0, 131073, 2424865, 0, 131073, 2424866, 0, 131073, 2424867, 0, 131073, 2424868, 0, 131073, 2424869, 0, 131073, 2424870, 0, 131073, 2424871, 0, 131073, 2424872, 0, 131073, 2424873, 0, 131073, 2424874, 0, 131073, 2424875, 0, 131073, 2424876, 0, 131074 )
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+position = Vector2( 438.302, -46.654 )
+texture = ExtResource( 5 )
+texture_scale = 3.0
+shadow_enabled = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+light_mask = 2
+position = Vector2( -140.319, 122.498 )
+occluder = SubResource( 1 )
+light_mask = 2
+
+[node name="MovingPlatform" parent="." instance=ExtResource( 7 )]
+position = Vector2( 225, 549.83 )
+waypoints_path = NodePath("../PlatformWaypoints")
+platform_texture = ExtResource( 9 )
+
+[node name="PlatformWaypoints" parent="." instance=ExtResource( 8 )]
+
+[node name="Start" parent="PlatformWaypoints" index="0"]
+position = Vector2( 225, 560 )
+
+[node name="Step" parent="PlatformWaypoints" index="1"]
+position = Vector2( 225, 450 )
+
+[editable path="Player"]
+
+[editable path="PlatformWaypoints"]
