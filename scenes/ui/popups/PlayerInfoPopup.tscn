@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/sprites/characters/Adventurer/Individual Sprites/adventurer-idle-00.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/icons/stats/stats_icons_10.jpg.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/icons/stats/stats_icons_00.jpg.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/icons/stats/stats_icons_02.jpg.png" type="Texture" id=4]
+[ext_resource path="res://scenes/ui/popups/PlayerInfoPopup.gd" type="Script" id=5]
+
+[node name="PlayerInfoPopup" type="WindowDialog"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -221.0
+margin_top = -225.0
+margin_right = 298.0
+margin_bottom = 208.0
+popup_exclusive = true
+window_title = "Player Info"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 509.0
+margin_bottom = 423.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopRow" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+margin_right = 499.0
+margin_bottom = 57.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/MainContainer/TopRow"]
+margin_top = 21.0
+margin_right = 81.0
+margin_bottom = 35.0
+text = "Player Name"
+
+[node name="CenterRow" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+margin_top = 61.0
+margin_right = 499.0
+margin_bottom = 350.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MainContainer/CenterRow"]
+margin_right = 330.0
+margin_bottom = 289.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/CenterRow"]
+margin_left = 334.0
+margin_right = 499.0
+margin_bottom = 289.0
+size_flags_horizontal = 3
+
+[node name="PlayerHealth" type="HBoxContainer" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer"]
+margin_right = 165.0
+margin_bottom = 64.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer/PlayerHealth"]
+margin_right = 71.0
+margin_bottom = 64.0
+texture = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer/PlayerHealth"]
+margin_left = 75.0
+margin_top = 25.0
+margin_right = 152.0
+margin_bottom = 39.0
+text = "9999 / 9999"
+
+[node name="PlayerDamage" type="HBoxContainer" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer"]
+margin_top = 68.0
+margin_right = 165.0
+margin_bottom = 132.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer/PlayerDamage"]
+margin_right = 71.0
+margin_bottom = 64.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer/PlayerDamage"]
+margin_left = 75.0
+margin_top = 25.0
+margin_right = 107.0
+margin_bottom = 39.0
+text = "9999"
+
+[node name="PlayerDefense" type="HBoxContainer" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer"]
+margin_top = 136.0
+margin_right = 165.0
+margin_bottom = 200.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer/PlayerDefense"]
+margin_right = 71.0
+margin_bottom = 64.0
+texture = ExtResource( 4 )
+
+[node name="Label" type="Label" parent="MarginContainer/MainContainer/CenterRow/VBoxContainer/PlayerDefense"]
+margin_left = 75.0
+margin_top = 25.0
+margin_right = 107.0
+margin_bottom = 39.0
+text = "9999"
+
+[node name="BottomRow" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+margin_top = 354.0
+margin_right = 499.0
+margin_bottom = 413.0
+size_flags_vertical = 3
+[connection signal="about_to_show" from="." to="." method="_on_PlayerInfoPopup_about_to_show"]
+[connection signal="popup_hide" from="." to="." method="_on_PlayerInfoPopup_popup_hide"]

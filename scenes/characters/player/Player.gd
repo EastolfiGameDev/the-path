@@ -12,7 +12,7 @@ onready var stats = $Stats
 func _ready():
     Game.GameState.update_player_stats({
         max_health = stats.max_health,
-        health = stats.health - 5,
+        health = stats.health,
         damage = stats.damage,
         defense = stats.defense
     })

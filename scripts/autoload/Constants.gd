@@ -10,5 +10,6 @@ const STATES = {
 
 const ACTION_KEYS = {
     JUMP = "jump", RUN = "run", CROUCH = "crouch",
-    MOVE_RIGHT = "move_right", MOVE_LEFT = "move_left"
+    MOVE_RIGHT = "move_right", MOVE_LEFT = "move_left",
+    UI_MENU = "ui_cancel"
 }

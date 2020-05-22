@@ -8,6 +8,10 @@ onready var health_danger = preload("res://assets/sprites/ui/bars/bars_low.png")
 func _ready():
     Game.GameState.connect("player_stats_updated", self, "on_player_stats_updated")
 
+func _input(event: InputEvent):
+    if event.is_action_pressed(Constants.ACTION_KEYS.UI_MENU):
+        Game.Popups.show_player_info_popup()
+
 func _update_lifebar():
     var health = life_bar.value
     var max_health = life_bar.max_value
@@ -22,13 +26,6 @@ func _update_lifebar():
 
 func _update_max_health(max_health: float):
     life_bar.max_value = max_health
-    
-#    var health = life_bar.value
-    if max_health < life_bar.value:
-        life_bar.value = max_health
-#        health = max_health
-#        _update_health(health)
-    
     _update_lifebar()
 
 func _update_health(health: int):
