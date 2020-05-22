@@ -184,11 +184,13 @@ script = ExtResource( 6 )
 [node name="BodyPivot" type="Position2D" parent="."]
 position = Vector2( 0, 15 )
 
-[node name="CornerRaycast" type="RayCast2D" parent="BodyPivot"]
-visible = false
+[node name="CornerRaycastUp" type="RayCast2D" parent="BodyPivot"]
 position = Vector2( 0, -25 )
-enabled = true
-cast_to = Vector2( 10, -5 )
+cast_to = Vector2( 8, -2 )
+
+[node name="CornerRaycastDown" type="RayCast2D" parent="BodyPivot"]
+position = Vector2( 0, -25 )
+cast_to = Vector2( 8, 2 )
 
 [node name="StateNameDisplayer" parent="." instance=ExtResource( 14 )]
 margin_left = -15.0
