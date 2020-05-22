@@ -3,6 +3,8 @@ extends KinematicBody2D
 
 export(bool) var editor_process: bool = true setget set_editor_process
 export(float) var speed: float = 400.0
+export(float) var idle_time: = 1.0
+export(bool) var has_equal_movement_speed := true
 export(NodePath) var waypoints_path = NodePath()
 export(Texture) var platform_texture: Texture
 
@@ -21,7 +23,6 @@ func _ready():
         return
     
     set_physics_process(true)
-#    position = Waypoints.get_start_position()
     var start_position = Waypoints.get_start_position()
     position = start_position
     last_position = start_position
@@ -35,18 +36,13 @@ func _ready():
 func _animate_to_next_point():
     var start: = last_position
     var end: = Waypoints.get_next_point_position()
-    var duration: = end.length() / float(speed)
-    var idle: = 1.0
+    var duration: = start.distance_to(end) / float(speed)
     
-#    print("distance -> " + str(start.distance_to(end)))
-#    print("end.length -> " + str(end.length()))
-#    print("speed -> " + str(speed))
-#    print("duration -> " + str(end.length() / float(speed)))
-#    print("duration -> " + str(start.distance_to(end) / float(speed)))
+    if not has_equal_movement_speed:
+        duration = end.length() / float(speed)
     
     last_position = end
-#    print("Move from " + str(start) + " to " + str(end))
-    Effects.interpolate_property(self, "position", start, end, duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, idle)
+    Effects.interpolate_property(self, "position", start, end, duration, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, idle_time)
     Effects.start()
 
 func set_editor_process(value: bool) -> void:
