@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/world/environment/sun/sun.png" type="Texture" id=2]
+
+[node name="Sun" type="Node2D"]
+position = Vector2( 704.698, 86.0997 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Light" type="Light2D" parent="."]
+texture = ExtResource( 1 )
+texture_scale = 2.0
+
+[node name="Sprite" type="Sprite" parent="Light"]
+texture = ExtResource( 2 )

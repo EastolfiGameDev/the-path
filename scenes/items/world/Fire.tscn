@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://shaders/fire.shader" type="Shader" id=1]
+[ext_resource path="res://assets/sprites/lights/light.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/lights/fire.png" type="Texture" id=3]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[sub_resource type="NoiseTexture" id=2]
+seamless = true
+noise = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 1 )
+shader_param/noise = SubResource( 2 )
+
+[node name="Fire" type="Node2D"]
+scale = Vector2( 0.05, 0.05 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 2 )
+texture_scale = 5.0
+color = Color( 0.976471, 0.933333, 0.807843, 1 )
+energy = 2.0
+shadow_enabled = true
+
+[node name="fire" type="Sprite" parent="Light2D"]
+material = SubResource( 3 )
+texture = ExtResource( 3 )
