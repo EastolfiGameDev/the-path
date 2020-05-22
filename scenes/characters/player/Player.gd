@@ -7,8 +7,15 @@ var look_direction = Vector2(1, 0) setget set_look_direction
 onready var sprite: Sprite = $Sprite
 onready var collision: CollisionShape2D = $CollisionShape2D
 onready var body_pivot: Position2D = $BodyPivot
+onready var stats = $Stats
 
 func _ready():
+    Game.GameState.update_player_stats({
+        max_health = stats.max_health,
+        health = stats.health - 5,
+        damage = stats.damage,
+        defense = stats.defense
+    })
     expand_collision()
 
 func set_look_direction(value: Vector2):

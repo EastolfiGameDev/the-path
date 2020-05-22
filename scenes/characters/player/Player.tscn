@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/state_machine/motion/in_air/Jump.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://scripts/state_machine/motion/on_wall/CornerGrab.gd" type="Script" id=6]
 [ext_resource path="res://scripts/state_machine/motion/on_ground/Idle.gd" type="Script" id=7]
 [ext_resource path="res://scripts/state_machine/motion/on_ground/Move.gd" type="Script" id=8]
+[ext_resource path="res://scenes/game_state/stats/Stats.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/debug/StateNameDisplayer.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Animation" id=1]
@@ -130,6 +131,8 @@ radius = 5.0
 position = Vector2( 281.733, 160.252 )
 collision_layer = 2
 script = ExtResource( 1 )
+
+[node name="Stats" parent="." instance=ExtResource( 9 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 4 )
