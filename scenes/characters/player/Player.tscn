@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/characters/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://scripts/state_machine/motion/in_air/Jump.gd" type="Script" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://scripts/state_machine/motion/on_ground/Idle.gd" type="Script" id=7]
 [ext_resource path="res://scripts/state_machine/motion/on_ground/Move.gd" type="Script" id=8]
 [ext_resource path="res://scenes/game_state/stats/Stats.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/items/weapons/WeaponPivot.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scripts/state_machine/combat/Attack.gd" type="Script" id=11]
+[ext_resource path="res://scenes/items/weapons/WeaponPivot.gd" type="Script" id=12]
 [ext_resource path="res://scenes/debug/StateNameDisplayer.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Animation" id=1]
@@ -25,6 +28,53 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 18, 19, 20, 21 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "attack_combo_1"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 42, 43, 44, 45, 46, 47 ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "attack_combo_2"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 48, 49, 50, 51, 52 ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "attack_combo_3"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 53, 54, 55, 56, 57, 58 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -138,11 +188,13 @@ script = ExtResource( 1 )
 texture = ExtResource( 4 )
 vframes = 16
 hframes = 7
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 anims/air_roll = SubResource( 1 )
+anims/attack_combo_1 = SubResource( 9 )
+anims/attack_combo_2 = SubResource( 10 )
+anims/attack_combo_3 = SubResource( 11 )
 anims/corner_grab = SubResource( 2 )
 anims/crouch = SubResource( 3 )
 anims/fall = SubResource( 4 )
@@ -184,6 +236,9 @@ script = ExtResource( 5 )
 [node name="CornerGrab" type="Node" parent="StateMachine"]
 script = ExtResource( 6 )
 
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+
 [node name="BodyPivot" type="Position2D" parent="."]
 position = Vector2( 0, 15 )
 
@@ -195,6 +250,9 @@ cast_to = Vector2( 8, -2 )
 position = Vector2( 0, -25 )
 cast_to = Vector2( 8, 2 )
 
+[node name="WeaponPivot" parent="." instance=ExtResource( 10 )]
+script = ExtResource( 12 )
+
 [node name="StateNameDisplayer" parent="." instance=ExtResource( 14 )]
 margin_left = -15.0
 margin_top = -50.0
@@ -203,3 +261,6 @@ margin_bottom = -36.0
 
 [node name="CameraRemote" type="RemoteTransform2D" parent="."]
 [connection signal="state_changed" from="StateMachine" to="StateNameDisplayer" method="_on_Player_state_changed"]
+[connection signal="attack_finished" from="WeaponPivot/Offset/Weapon" to="StateMachine/Attack" method="_on_Weapon_attack_finished"]
+
+[editable path="WeaponPivot"]

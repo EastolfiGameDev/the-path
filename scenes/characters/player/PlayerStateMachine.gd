@@ -6,7 +6,8 @@ func _ready():
         Constants.STATES.MOVE: $Move,
         Constants.STATES.JUMP: $Jump,
         Constants.STATES.CROUCH: $Crouch,
-        Constants.STATES.CORNER_GRAB: $CornerGrab
+        Constants.STATES.CORNER_GRAB: $CornerGrab,
+        Constants.STATES.ATTACK: $Attack
     }
 
 func _change_state(state_name):
@@ -29,3 +30,16 @@ func _change_state(state_name):
         $Jump.motion.y = 0
 
     ._change_state(state_name)
+
+
+func _input(event):
+    """
+    Here we only handle input that can interrupt states, attacking in this case
+    otherwise we let the state node handle it
+    """
+    if event.is_action_pressed(Constants.ACTION_KEYS.ATTACK_MAIN):
+        if current_state == $Attack:
+            return
+        _change_state(Constants.STATES.ATTACK)
+        return
+    current_state.handle_input(event)
